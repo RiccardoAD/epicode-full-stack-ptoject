@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('services', function (Blueprint $table) {
+
             $table->id();
+            $table->foreignId('service_type_id')->constrained('service_types');
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
+         
+            // $table->timestamps();
         });
     }
 

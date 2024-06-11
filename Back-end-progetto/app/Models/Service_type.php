@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Service_type extends Model
 {
     use HasFactory;
+
+    
+
+    protected $fillable = ['name', 'timeslot', 'price'];
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+
+
+
+
 }

@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('service_id')->constrained('services');
+            $table->date('booking_date');
+            $table->string('time_slot'); 
+            
             $table->timestamps();
+
+
         });
     }
 
