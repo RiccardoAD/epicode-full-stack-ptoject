@@ -1,6 +1,6 @@
 import React from 'react';
-import { IonIcon } from '@ionic/react';
-
+// import { IonIcon } from '@ionic/react';
+import { IoMdArrowForward } from "react-icons/io";
 const services = [
   {
     icon: 'flaticon-salon',
@@ -34,7 +34,7 @@ const services = [
   }
 ];
 
-const Service = () => (
+const Services = () => (
   <section className="section service" id="services" aria-label="services">
     <div className="container">
       <h2 className="h2 section-title text-center">Service We Provide</h2>
@@ -46,7 +46,7 @@ const Service = () => (
               <div className="card-icon"><i className={service.icon}></i></div>
               <h3 className="h3"><a href="#" className="card-title">{service.title}</a></h3>
               <p className="card-text">{service.description}</p>
-              <a href="#" className="card-btn" aria-label="more"><IonIcon name="arrow-forward" aria-hidden="true" /></a>
+              <a href="#" className="card-btn" aria-label="more"></a>
             </div>
           </li>
         ))}
@@ -55,4 +55,4 @@ const Service = () => (
   </section>
 );
 
-export default Service;
+export default Services;

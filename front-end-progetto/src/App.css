@@ -305,21 +305,93 @@ body {
   width: 100%;
   padding-block: 10px;
   z-index: 4;
+  transition: all 0.3s ease;
 }
 
 .header-bottom.active {
   position: fixed;
   top: 0;
   background-color: var(--rich-black-fogra-39);
-  transform: translateY(-100%);
-  animation: slideIn 0.5s ease forwards;
+  transform: translateY(0);
+  /* animation: slideIn 0.5s ease forwards; */
+  animation: none;
 }
 
-@keyframes slideIn {
+/* @keyframes slideIn {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(0); }
+} */
+/* Container styles within the header */
+.header-bottom > .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* Logo styles */
+.logo {
+  color: var(--indian-yellow);
+  font-family: var(--ff-oswald);
+  font-size: 2.7rem;
+  font-weight: var(--fw-600);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.logo .span {
+  color: var(--white);
+  font-family: var(--ff-rubik);
+  font-size: 1.3rem;
+  font-weight: var(--fw-300);
+  text-transform: capitalize;
+  letter-spacing: 2px;
+}
+
+/* Navbar styles */
+.nav-toggle-btn {
+  color: var(--white);
+  font-size: 40px;
+}
+
+.navbar {
+  position: absolute;
+  padding-inline: 0;
+  top: 100%;
+  left: 15px;
+  right: 15px;
+  background-color: var(--rich-black-fogra-39);
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.15s var(--cubic-out);
+}
+
+.navbar.active {
+  max-height: 321px;
+  transition-duration: 0.5s;
+}
+
+.navbar-list {
+  border-block-start: 1px solid var(--jet);
+  margin-block: 25px;
+}
+
+.navbar-item {
+  border-block-end: 1px solid var(--jet);
+}
+
+.navbar-link {
+  color: var(--white);
+  font-family: var(--ff-oswald);
+  font-weight: var(--fw-600);
+  text-transform: uppercase;
+  line-height: 1.5;
+  padding: 10px 30px;
+  transition: var(--transition-1);
+}
+
+.navbar-link:is(:hover, :focus) {
+  color: var(--indian-yellow);
+}
 .header-bottom > .container {
   display: flex;
   justify-content: space-between;
@@ -618,7 +690,7 @@ body {
 /*-----------------------------------*\
   #APPOINTMENT
 \*-----------------------------------*/
-
+/* 
 .appoin { padding-block-start: 0; }
 
 .appoin-card .card-banner { display: none; }
@@ -694,7 +766,7 @@ textarea.input-field {
 .form-btn:is(:hover, :focus) {
   background-color: var(--white);
   color: var(--eerie-black-1);
-}
+} */
 
 
 
