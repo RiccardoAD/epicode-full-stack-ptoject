@@ -1,4 +1,5 @@
 import React from 'react';
+import './footer.css';
 
 const Footer = () => {
   return (
@@ -66,7 +67,7 @@ const Footer = () => {
                 <a href="#" className="card-title">The beginners guide to Henna Brows in Brisbane</a>
               </h3>
               <div className="card-date">
-                <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+                
                 <time dateTime="2022-08-25">25 August 2022</time>
               </div>
             </div>
@@ -79,7 +80,7 @@ const Footer = () => {
                 <a href="#" className="card-title">How do I get rid of unwanted hair on my face?</a>
               </h3>
               <div className="card-date">
-                <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+               
                 <time dateTime="2022-08-25">25 August 2022</time>
               </div>
             </div>
@@ -91,21 +92,19 @@ const Footer = () => {
           <p className="footer-list-title">Contact Us</p>
         </li>
         <li className="footer-list-item">
-          <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+        
           <address className="contact-link">
             7528 Roberts Ave. Palm Bay, FL 32907
           </address>
         </li>
         <li className="footer-list-item">
-          <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
           <a href="tel:+0123456789" className="contact-link">+012 (345) 67 89</a>
         </li>
         <li className="footer-list-item">
-          <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
           <span className="contact-link">Sun - Friday, 08 am - 09 pm</span>
         </li>
         <li className="footer-list-item">
-          <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+          
           <a href="mailto:support@gmail.com" className="contact-link">support@gmail.com</a>
         </li>
       </ul>
