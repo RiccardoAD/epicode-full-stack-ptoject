@@ -1,5 +1,8 @@
 
 .container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -29,10 +32,6 @@
   width: 20px;
   height: 20px;
 }
-/* 
-.header-content button svg:hover {
-  color: {shade(0.2, '#999591')};
-} */
 
 .profile {
   display: flex;
@@ -279,11 +278,6 @@
   border-radius: 10px;
   color: #fff;
 }
-
-/* .DayPicker:not(.DayPicker--interactionDisabled)
-  .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-  background: ${shade(0.2, '#3e3b47')};
-} */
 
 .DayPicker-Day--today {
   font-weight: normal;

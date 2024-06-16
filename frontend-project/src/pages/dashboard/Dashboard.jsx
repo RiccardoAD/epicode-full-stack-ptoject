@@ -2,19 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FiClock, FiPower } from 'react-icons/fi';
 import { isToday, format, parseISO, isAfter } from 'date-fns';
 import DayPicker from 'react-day-picker';
-import {
-  Appointment,
-  Calendar,
-  Container,
-  Content,
-  Header,
-  HeaderContent,
-  NextAppointment,
-  Profile,
-  Schedule,
-  Section,
-} from './styles';
 import 'react-day-picker/lib/style.css';
+import './dashboard.css';
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/apiClient';
@@ -45,7 +34,7 @@ const Dashboard = () => {
           month: currentMonth.getMonth() + 1,
         },
       })
-      .then(response => {
+      .then((response) => {
         setMonthAvailability(response.data);
       });
   }, [currentMonth, user.id]);
@@ -59,8 +48,8 @@ const Dashboard = () => {
           day: selectedDate.getDate(),
         },
       })
-      .then(response => {
-        const appointmentsFormatted = response.data.map(appointment => {
+      .then((response) => {
+        const appointmentsFormatted = response.data.map((appointment) => {
           return {
             ...appointment,
             hourFormatted: format(parseISO(appointment.date), 'HH:mm'),
@@ -73,8 +62,8 @@ const Dashboard = () => {
 
   const disabledDays = useMemo(() => {
     const dates = monthAvailability
-      .filter(monthDay => !monthDay.available)
-      .map(monthDay => {
+      .filter((monthDay) => !monthDay.available)
+      .map((monthDay) => {
         const year = currentMonth.getFullYear();
         const month = currentMonth.getMonth();
 
@@ -93,30 +82,30 @@ const Dashboard = () => {
   }, [selectedDate]);
 
   const morningAppointments = useMemo(() => {
-    return appointments.filter(appointment => {
+    return appointments.filter((appointment) => {
       return parseISO(appointment.date).getHours() < 12;
     });
   }, [appointments]);
 
   const afternoonAppointments = useMemo(() => {
-    return appointments.filter(appointment => {
+    return appointments.filter((appointment) => {
       return parseISO(appointment.date).getHours() >= 12;
     });
   }, [appointments]);
 
   const nextAppointment = useMemo(() => {
-    return appointments.find(appointment =>
-      isAfter(parseISO(appointment.date), new Date()),
+    return appointments.find((appointment) =>
+      isAfter(parseISO(appointment.date), new Date())
     );
   }, [appointments]);
 
   return (
-    <Container>
-      <Header>
-        <HeaderContent>
+    <div className="container">
+      <header className="header">
+        <div className="header-content">
           <img src={logoImg} alt="GoBarber" />
 
-          <Profile>
+          <div className="profile">
             <img src={user.avatar_url} alt={user.name} />
             <div>
               <span>Welcome,</span>
@@ -124,25 +113,24 @@ const Dashboard = () => {
                 <strong>{user.name}</strong>
               </Link>
             </div>
-          </Profile>
+          </div>
 
           <button type="button" onClick={signOut}>
             <FiPower />
           </button>
-        </HeaderContent>
-      </Header>
-      <Content>
-        <Schedule>
+        </div>
+      </header>
+      <div className="content">
+        <div className="schedule">
           <h1>Appointments Schedule</h1>
           <p>
             {isToday(selectedDate) && <span>Today</span>}
-
             <span>{selectedDateAsText}</span>
             <span>{selectedWeekDay}</span>
           </p>
 
           {isToday(selectedDate) && nextAppointment && (
-            <NextAppointment>
+            <div className="next-appointment">
               <strong>Next appointment</strong>
               <div>
                 <img
@@ -155,18 +143,18 @@ const Dashboard = () => {
                   {nextAppointment.hourFormatted}
                 </span>
               </div>
-            </NextAppointment>
+            </div>
           )}
 
-          <Section>
+          <div className="section">
             <strong>Morning</strong>
 
             {morningAppointments.length === 0 && (
               <p>There is no appointments for this date</p>
             )}
 
-            {morningAppointments.map(appointment => (
-              <Appointment key={appointment.id}>
+            {morningAppointments.map((appointment) => (
+              <div className="appointment" key={appointment.id}>
                 <span>
                   <FiClock />
                   {appointment.hourFormatted}
@@ -178,17 +166,17 @@ const Dashboard = () => {
                   />
                   <strong>{appointment.user.name}</strong>
                 </div>
-              </Appointment>
+              </div>
             ))}
-          </Section>
-          <Section>
+          </div>
+          <div className="section">
             <strong>Afternoon</strong>
 
             {afternoonAppointments.length === 0 && (
               <p>There is no appointments for this date</p>
             )}
-            {afternoonAppointments.map(appointment => (
-              <Appointment key={appointment.id}>
+            {afternoonAppointments.map((appointment) => (
+              <div className="appointment" key={appointment.id}>
                 <span>
                   <FiClock />
                   {appointment.hourFormatted}
@@ -200,11 +188,11 @@ const Dashboard = () => {
                   />
                   <strong>{appointment.user.name}</strong>
                 </div>
-              </Appointment>
+              </div>
             ))}
-          </Section>
-        </Schedule>
-        <Calendar>
+          </div>
+        </div>
+        <div className="calendar">
           <DayPicker
             fromMonth={new Date()}
             disabledDays={[{ daysOfWeek: [0, 6] }, ...disabledDays]}
@@ -215,9 +203,9 @@ const Dashboard = () => {
               available: { daysOfWeek: [1, 2, 3, 4, 5] },
             }}
           />
-        </Calendar>
-      </Content>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

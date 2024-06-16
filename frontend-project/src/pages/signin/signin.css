@@ -1,0 +1,84 @@
+/* Container styles */
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+  }
+  
+  /* Background styles */
+  .background {
+    flex: 1;
+    background: url('../../assets/sign-in-background.png') no-repeat center;
+    background-size: cover;
+  }
+  
+  /* Content styles */
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  /* Keyframes for animation */
+  @keyframes appearFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Animation container styles */
+  .animationContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: appearFromLeft 1s;
+  }
+  
+  .animationContainer form {
+    margin: 80px 0;
+    width: 340px;
+    text-align: center;
+  }
+  
+  .animationContainer form h1 {
+    margin-bottom: 24px;
+  }
+  
+  .animationContainer form a {
+    color: #f4ede8;
+    display: block;
+    margin-top: 24px;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .animationContainer form a:hover {
+    color: #c2b8b0; /* This is the shaded color of #f4ede8 */
+  }
+  
+  .animationContainer > a {
+    color: #ff9000;
+    display: block;
+    margin-top: 24px;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+  }
+  
+  .animationContainer > a svg {
+    margin-right: 16px;
+  }
+  
+  .animationContainer > a:hover {
+    color: #cc7300; /* This is the shaded color of #ff9000 */
+  }

@@ -1,9 +1,8 @@
-import React, { ChangeEvent, useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiMail, FiLock, FiUser, FiCamera, FiArrowLeft } from 'react-icons/fi';
 import { Form } from '@unform/web';
-import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
-import { Container, Content, AvatarInput } from './styles';
+import './profile.css';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -20,31 +19,29 @@ const Profile = () => {
   const handleSubmit = useCallback(
     async (data) => {
       try {
-        formRef.current?.setErrors({});
+        formRef.current.setErrors({});
 
-        const schema = Yup.object().shape({
-          name: Yup.string().required('Name is required'),
-          email: Yup.string()
-            .required('Email is required')
-            .email('Please use a valid email'),
-          old_password: Yup.string(),
-          password: Yup.string().when('old_password', {
-            is: (val) => !!val.length,
-            then: Yup.string().required('Required Field'),
-            otherwise: Yup.string(),
-          }),
-          password_confirmation: Yup.string()
-            .when('old_password', {
-              is: (val) => !!val.length,
-              then: Yup.string().required('Required Field'),
-              otherwise: Yup.string(),
-            })
-            .oneOf([Yup.ref('password')], 'The passwords do not match'),
-        });
+        const errors = {};
 
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+        if (!data.name) {
+          errors.name = 'Name is required';
+        }
+        if (!data.email) {
+          errors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+          errors.email = 'Please use a valid email';
+        }
+        if (data.old_password && !data.password) {
+          errors.password = 'Required Field';
+        }
+        if (data.password !== data.password_confirmation) {
+          errors.password_confirmation = 'The passwords do not match';
+        }
+
+        if (Object.keys(errors).length > 0) {
+          formRef.current.setErrors(errors);
+          return;
+        }
 
         const { name, email, old_password, password, password_confirmation } = data;
 
@@ -74,12 +71,12 @@ const Profile = () => {
       } catch (err) {
         const errors = getValidationErrors(err);
 
-        formRef.current?.setErrors(errors);
+        formRef.current.setErrors(errors);
 
         addToast({
           type: 'error',
           title: 'Error on information updating!',
-          description: 'An error Occurred during profile update.',
+          description: 'An error occurred during profile update.',
         });
       }
     },
@@ -105,7 +102,7 @@ const Profile = () => {
   );
 
   return (
-    <Container>
+    <div className="container">
       <header>
         <div>
           <Link to="/dashboard">
@@ -114,7 +111,7 @@ const Profile = () => {
         </div>
       </header>
 
-      <Content>
+      <div className="content">
         <Form
           ref={formRef}
           onSubmit={handleSubmit}
@@ -123,13 +120,13 @@ const Profile = () => {
             email: user.email,
           }}
         >
-          <AvatarInput>
+          <div className="avatar-input">
             <img src={user.avatar_url} alt={user.name} />
             <label htmlFor="avatar">
               <FiCamera />
               <input type="file" id="avatar" onChange={handleAvatarChange} />
             </label>
-          </AvatarInput>
+          </div>
 
           <h1>My Profile</h1>
 
@@ -156,8 +153,8 @@ const Profile = () => {
           />
           <Button type="submit">Confirm changes</Button>
         </Form>
-      </Content>
-    </Container>
+      </div>
+    </div>
   );
 };
 
