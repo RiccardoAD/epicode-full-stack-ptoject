@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
@@ -8,7 +9,7 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        return Appointment::with('services')->get();
+        return Appointment::with('services', 'timeSlot', 'user')->get();
     }
 
     public function store(Request $request)
@@ -31,12 +32,12 @@ class AppointmentController extends Controller
             $appointment->services()->attach($service['id'], ['quantity' => $service['quantity']]);
         }
 
-        return response()->json($appointment->load('services'), 201);
+        return response()->json($appointment->load('services', 'timeSlot', 'user'), 201);
     }
 
     public function show($id)
     {
-        return Appointment::with('services')->findOrFail($id);
+        return Appointment::with('services', 'timeSlot', 'user')->findOrFail($id);
     }
 
     public function update(Request $request, $id)
@@ -55,18 +56,31 @@ class AppointmentController extends Controller
             'date' => $request->date,
         ]);
 
-        $appointment->services()->detach();
+        $appointment->services()->sync([]);
         foreach ($request->services as $service) {
             $appointment->services()->attach($service['id'], ['quantity' => $service['quantity']]);
         }
 
-        return response()->json($appointment->load('services'));
+        return response()->json($appointment->load('services', 'timeSlot', 'user'));
     }
 
     public function destroy($id)
     {
-        Appointment::findOrFail($id)->delete();
+        $appointment = Appointment::findOrFail($id);
+        $appointment->services()->detach();
+        $appointment->delete();
 
         return response()->json(null, 204);
+    }
+    public function getAppointments(Request $request)
+    {
+        // Example logic to get appointments
+        $year = $request->query('year');
+        $month = $request->query('month');
+        $day = $request->query('day');
+        
+        $appointments = []; // Fetch appointments from database
+
+        return response()->json($appointments);
     }
 }

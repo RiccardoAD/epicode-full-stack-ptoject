@@ -6,51 +6,61 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        return Service::all();
+        $services = Service::all();
+        return response()->json($services);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        // $this->authorize('admin-only');
-        
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'price' => 'required|numeric',
+            'duration' => 'required|integer',
         ]);
 
         $service = Service::create($request->all());
-
         return response()->json($service, 201);
     }
 
-    public function show($id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(Service $service)
     {
-        return Service::findOrFail($id);
-    }
-
-    public function update(Request $request, $id)
-    {
-        // $this->authorize('admin-only');
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-        ]);
-
-        $service = Service::findOrFail($id);
-        $service->update($request->all());
-
         return response()->json($service);
     }
 
-    public function destroy($id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Service $service)
     {
-        // $this->authorize('admin-only');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'duration' => 'required|integer',
+        ]);
 
-        Service::findOrFail($id)->delete();
+        $service->update($request->all());
+        return response()->json($service);
+    }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Service $service)
+    {
+        $service->delete();
         return response()->json(null, 204);
     }
 }

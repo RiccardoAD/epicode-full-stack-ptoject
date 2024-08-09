@@ -19,13 +19,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('appointment_service', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('appointment_id')->constrained()->onDelete('cascade');
-            $table->foreignId('service_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -34,6 +27,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('appointments');
-        Schema::dropIfExists('appointment_service');
     }
 };

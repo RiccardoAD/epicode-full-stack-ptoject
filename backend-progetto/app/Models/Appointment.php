@@ -9,11 +9,6 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    public function services()
-    {
-        return $this->belongsToMany(Service::class)->withPivot('quantity');
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -22,5 +17,10 @@ class Appointment extends Model
     public function timeSlot()
     {
         return $this->belongsTo(TimeSlot::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class)->withPivot('quantity')->withTimestamps();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\TimeSlot;
 use Illuminate\Http\Request;
 
+
 class TimeSlotController extends Controller
 {
     public function index()
@@ -46,5 +47,15 @@ class TimeSlotController extends Controller
         TimeSlot::findOrFail($id)->delete();
 
         return response()->json(null, 204);
+    }
+    public function getMonthAvailability($providerId, Request $request)
+    {
+        // Example logic to get month availability
+        $year = $request->query('year');
+        $month = $request->query('month');
+        
+        $availability = []; // Fetch availability from database
+
+        return response()->json($availability);
     }
 }

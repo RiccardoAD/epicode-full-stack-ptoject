@@ -10,6 +10,6 @@ class Service extends Model
     use HasFactory;
     public function appointments()
     {
-        return $this->belongsToMany(Appointment::class)->withTimestamps();
+        return $this->belongsToMany(Appointment::class)->withPivot('quantity')->withTimestamps();
     }
 }

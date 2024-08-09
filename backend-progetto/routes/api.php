@@ -32,9 +32,27 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/time_slots/{id}', [TimeSlotController::class, 'show']);
     Route::put('/time_slots/{id}', [TimeSlotController::class, 'update'])->middleware('admin');
     Route::delete('/time_slots/{id}', [TimeSlotController::class, 'destroy'])->middleware('admin');
+   
+   
+    Route::view('appointments/create', 'app')->name('appointments.create');
+    Route::view('appointments', 'app')->name('appointments.index');
 });
+
+
 
 // Rotte per l'autenticazione
 Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
 Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
+
+Route::get('/time_slots', [TimeSlotController::class, 'index']);
+Route::get('/services', [ServiceController::class, 'index']);
+Route::get('/services/{id}', [ServiceController::class, 'show']);
+Route::get('/appointments', [AppointmentController::class, 'index']);
+Route::get('/appointments/{id}', [AppointmentController::class, 'show']);
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/providers/{provider}/month-availability', [TimeSlotController::class, 'getMonthAvailability']);
+    Route::get('/appointments/me', [AppointmentController::class, 'getAppointments']);
+});
